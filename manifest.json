@@ -4,8 +4,8 @@
   "description": "Chat with Kres AI - Your friendly, witty AI assistant",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#8b5cf6",
+  "background_color": "#075e54",
+  "theme_color": "#075e54",
   "icons": [
     {
       "src": "icon-192.png",
