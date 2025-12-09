@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kres AI - Your Friendly AI Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#8b5cf6">
+    <meta name="description" content="Chat with Kres AI - Your friendly, witty AI assistant">
+</head>
+<body>
+    <div class="container">
+        <aside id="sidebar" class="sidebar" aria-label="Chat history sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <div class="logo-icon" aria-hidden="true">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1 class="logo-title">Kres AI</h1>
+                        <div class="logo-subtitle">Your Friendly AI</div>
+                    </div>
+                </div>
+                <button id="closeSidebar" class="close-sidebar" aria-label="Close sidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <button id="newChatBtn" class="new-chat-btn" aria-label="Start new chat">
+                <i class="fas fa-plus"></i>
+                New Chat
+            </button>
+
+            <div class="chat-history">
+                <h2 class="chat-history-title">Recent Chats</h2>
+                <div id="chatList" role="list"></div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button id="clearHistoryBtn" class="footer-btn" aria-label="Clear chat history">
+                    <i class="fas fa-trash"></i>
+                    <span>Clear History</span>
+                </button>
+                <button id="themeToggle" class="footer-btn" aria-label="Toggle theme">
+                    <i id="themeIcon" class="fas fa-moon"></i>
+                    <span id="themeText">Light Mode</span>
+                </button>
+                <button id="settingsBtn" class="footer-btn" aria-label="Open settings" style="display:none">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-chat" role="main">
+            <header class="chat-header">
+                <div class="header-left">
+                    <button id="openSidebar" class="open-sidebar" aria-label="Open sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="ai-info">
+                        
+                        <div class="ai-text">
+                            <h2 class="ai-name">Kres AI <img src="verified-icon.svg" alt="Verified badge" class="verified-icon"></h2>
+                            <div class="ai-status" id="aiStatus">Online</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button id="exportBtn" class="header-btn" aria-label="Export chat" title="Export chat">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button id="helpBtn" class="header-btn" aria-label="Help" title="Help">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="messages-area" id="messagesArea" role="log" aria-live="polite">
+                <div id="welcomeScreen" class="welcome-screen">
+                    <div class="welcome-content">
+                        
+                        
+                    </div>
+
+                    <div class="prompt-grid" id="promptGrid" role="list"></div>
+                    
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-comment-dots"></i>
+                            <span id="totalChats">0</span> chats
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span id="totalMessages">0</span> messages
+                        </div>
+                    </div>
+                </div>
+
+                <div id="messagesContainer"></div>
+                <div id="typingIndicator"></div>
+                <div id="messagesEnd" tabindex="-1"></div>
+            </div>
+
+            <footer class="input-area">
+                <div class="input-container">
+                    <form id="messageForm" class="input-box" aria-label="Send message">
+                        <textarea 
+                            id="messageInput" 
+                            class="message-input" 
+                            rows="1" 
+                            placeholder="Type your message" 
+                            aria-label="Message input"
+                            aria-required="true"
+                            required
+                        ></textarea>
+                        <div class="input-buttons">
+                           <button type="button" id="voiceBtn" class="input-btn" 
+        aria-label="Voice input" 
+        title="Click to start voice input (Chrome/Edge only)">
+    <i class="fas fa-microphone"></i>
+</button>
+                            <button type="button" id="attachBtn" class="input-btn" aria-label="Attach file" title="Attach file (coming soon)">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                            <button type="submit" id="sendBtn" class="send-btn" aria-label="Send message" disabled>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <p class="input-footer">
+                        <i class="fas fa-info-circle"></i>
+                        © 2025 Kres Chat • Your chats are stored locally • Be awesome! ✨
+                    </p>
+                </div>
+            </footer>
+        </main>
+
+        <div id="overlay" class="overlay" style="display: none;" aria-hidden="true"></div>
+
+        <div id="notification" class="notification" aria-live="assertive"></div>
+    </div>
+
+    <div id="settingsModal" class="modal" role="dialog" aria-labelledby="settingsTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="settingsTitle" class="modal-title">Settings</h2>
+                <button id="closeModal" class="modal-close" aria-label="Close settings">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label for="apiKey">Groq API Key (optional):</label>
+                    <input type="password" id="apiKey" placeholder="Enter your Groq API key for better responses">
+                    <small>Leave empty to use demo mode</small>
+                </div>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="autoScroll">
+                        Auto-scroll to new messages
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="soundEffects">
+                        Enable sound effects
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label for="responseSpeed">Response Speed:</label>
+                    <select id="responseSpeed">
+                        <option value="fast">Fast</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="slow">Slow</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label for="fontSize">Font Size:</label>
+                    <select id="fontSize">
+                        <option value="small">Small</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveSettings" class="btn-primary">Save Settings</button>
+                <button id="resetSettings" class="btn-secondary">Reset to Defaults</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
