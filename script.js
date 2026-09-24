@@ -2,7 +2,7 @@ const CONFIG = {
     AI_NAME: 'Kres',
     AI_PERSONALITY: "You're a friendly, witty AI named Kres. You speak like a cool friend, not a robot. You're playful but still smart and helpful. You love using emojis, keeping the conversation light, and making users smile. Be helpful, but never boring.",
     GROQ_API_URL: 'https://api.groq.com/openai/v1/chat/completions',
-    MODEL: 'llama-3.1-8b-instant',
+    MODEL: 'openai/gpt-oss-120b',
     MAX_TOKENS: 500,
     TEMPERATURE: 0.8,
     DEMO_MODE: false
